@@ -444,7 +444,7 @@ class MeioUploadBehavior extends ModelBehavior {
 
 			// Update model data
 			if (!empty($options['fields']['dir'])) {
-				$data[$model->alias][$options['fields']['dir']] = $options['dir'];
+				$data[$model->alias][$options['fields']['dir']] = str_replace(WWW_ROOT, '', $options['dir']);
 			}
 			if (!empty($options['fields']['mimetype'])) {
 				$data[$model->alias][$options['fields']['mimetype']] = $mimeType;
