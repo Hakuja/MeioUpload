@@ -9,7 +9,7 @@
  * @license      MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 
-App::import('Behavior', 'MeioUpload.MeioUpload');
+App::uses('MeioUploadBehavior', 'MeioUpload.Model/Behavior');
 define('MEIO_TESTS', dirname(dirname(dirname(dirname(__FILE__)))) . DS);
 define('MEIO_TMP', TMP . 'tests' . DS . 'meio');
 
@@ -130,13 +130,13 @@ class MeioUploadTestCase extends CakeTestCase {
 	var $fixtures = array('plugin.meio_upload.meio');
 
 /**
- * start
+ * setUp
  *
  * @return void
  * @access public
  */
-	function start() {
-		parent::start();
+	function setUp() {
+		parent::setUp();
 		$this->TestModel = new Meio(array('dir' => MEIO_TMP));
 		$this->MeioUpload =& $this->TestModel->Behaviors->MeioUploadTest;
 		$file = new File(MEIO_TMP);
@@ -144,13 +144,13 @@ class MeioUploadTestCase extends CakeTestCase {
 	}
 
 /**
- * end
+ * tearDown
  *
  * @return void
  * @access public
  */
-	function end() {
-		parent::end();
+	function tearDown() {
+		parent::tearDown();
 		$file = new File(MEIO_TMP);
 		$file->delete();
 	}
@@ -352,7 +352,7 @@ class MeioUploadTestCase extends CakeTestCase {
 			)
 		);
 		$model->create();
-		$this->assertTrue($model->save($data));
+		$this->assertTrue(!!$model->save($data));
 		$this->assertTrue(file_exists(MEIO_TMP . DS . 'test.png'));
 		@unlink(MEIO_TMP . DS . 'test.png');
 	}
@@ -435,7 +435,7 @@ class MeioUploadTestCase extends CakeTestCase {
 			)
 		);
 		$model->create();
-		$this->assertTrue($model->save($data));
+		$this->assertTrue(!!$model->save($data));
 		$this->assertTrue(file_exists(MEIO_TMP . DS . 'test.png'));
 
 		$result = $model->find('all');
@@ -453,7 +453,7 @@ class MeioUploadTestCase extends CakeTestCase {
 		$data = $expected[0];
 		$data['Meio']['id'] = 1;
 		$data['Meio']['filename'] = array('remove' => '1');
-		$this->assertTrue($model->save($data));
+		$this->assertTrue(!!$model->save($data));
 
 		$result = $model->find('all');
 		$expected = array(array(

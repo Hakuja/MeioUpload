@@ -8,7 +8,9 @@
  * @link         http://github.com/jrbasso/MeioUpload
  * @license      MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
-App::import('Core', array('File', 'Folder'));
+App::uses('File', 'Utility');
+App::uses('Folder', 'Utility');
+App::uses('ModelBehavior', 'Model');
 
 class MeioUploadBehavior extends ModelBehavior {
 /**
