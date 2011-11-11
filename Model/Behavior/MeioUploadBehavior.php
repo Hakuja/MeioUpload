@@ -119,6 +119,8 @@ class MeioUploadBehavior extends ModelBehavior {
 			if ($return !== true) {
 				$model->validationErrors[$fieldName] = $return;
 				$allOk = false;
+			} elseif (!empty($model->data[$model->alias][$fieldName])) {
+				$this->_setFileToRemove($model, $fieldName);
 			}
 		}
 		return $allOk;
